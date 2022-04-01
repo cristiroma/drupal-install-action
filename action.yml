@@ -10,7 +10,7 @@ runs:
   using: "composite"
   steps:
     - name: "Validate composer schema"
-      run: composer validate --no-ansi --strict
+      run: composer validate --no-ansi
       shell: bash
 
     - name: "Install prod dependencies"
