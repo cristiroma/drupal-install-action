@@ -22,3 +22,5 @@ jobs:
 ## Inputs
 
 - `dev` - (Default: `false`) - When `true` it installs all composer dependencies (including development). This is useful when creating a release to run tests.
+- `php` - (Default: `/usr/bin/php`) - Absolute path to the PHP executable when the project is using a different version such as PHP 8.1, e.g. `/usr/bin/php81`.
+- `composer` - (Default: `/usr/bin/composer`) - Absolute path to the `composer` executable

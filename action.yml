@@ -5,6 +5,14 @@ inputs:
     description: 'Prod or development release (composer --dev)'
     required: true
     default: 'false'
+  php:
+    description: 'Absolute path to PHP executable to use when running composer'
+    required: false
+    default: '/usr/bin/php'
+  composer:
+    description: 'Absolute path to the composer executable'
+    required: false
+    default: '/usr/bin/composer'
 
 runs:
   using: "composite"
@@ -15,10 +23,10 @@ runs:
 
     - name: "Install prod dependencies"
       if: ${{ inputs.dev == 'false' }}
-      run: composer install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader
+      run: ${{ inputs.php }} ${{ inputs.composer }} install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader
       shell: bash
 
     - name: "Install dev dependencies"
       if: ${{ inputs.dev == 'true' }}
-      run: composer install --no-ansi --no-interaction --no-progress
+      run: ${{ inputs.php }} ${{ inputs.composer }} install --no-ansi --no-interaction --no-progress
       shell: bash
