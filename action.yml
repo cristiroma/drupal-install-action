@@ -8,7 +8,7 @@ inputs:
   php:
     description: 'Absolute path to PHP executable to use when running composer'
     required: false
-    default: ''
+    default: '/usr/bin/php'
 
 runs:
   using: "composite"
@@ -17,14 +17,11 @@ runs:
       run: composer validate --no-ansi
       shell: bash
 
-    - name: "Setup custom PHP executable"
-      if: ${{ inputs.php != '' }}
-      run: alias php='${{ inputs.php }}'
-      shell: bash
-
     - name: "Install prod dependencies"
       if: ${{ inputs.dev == 'false' }}
-      run: composer install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader
+      run: |
+        alias php='${{ inputs.php }}'
+        composer install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader
       shell: bash
 
     - name: "Install dev dependencies"
