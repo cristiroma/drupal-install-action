@@ -19,7 +19,7 @@ runs:
 
     - name: "Setup custom PHP executable"
       if: ${{ inputs.php != '' }}
-      run: alias php='{{ inputs.php }}'
+      run: alias php='${{ inputs.php }}'
       shell: bash
 
     - name: "Install prod dependencies"
