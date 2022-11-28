@@ -5,12 +5,21 @@ inputs:
     description: 'Prod or development release (composer --dev)'
     required: true
     default: 'false'
+  php:
+    description: 'Absolute path to PHP executable to use when running composer'
+    required: false
+    default: ''
 
 runs:
   using: "composite"
   steps:
     - name: "Validate composer schema"
       run: composer validate --no-ansi
+      shell: bash
+
+    - name: "Setup custom PHP executable"
+      if: ${{ inputs.php != '' }}
+      run: alias php='{{ inputs.php }}'
       shell: bash
 
     - name: "Install prod dependencies"
