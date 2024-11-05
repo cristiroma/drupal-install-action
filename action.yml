@@ -13,6 +13,11 @@ inputs:
     description: 'Absolute path to the composer executable'
     required: false
     default: '/usr/bin/composer'
+  verbose:
+    description: 'Enable console messages'
+    required: false
+    default: '-q'
+
 
 runs:
   using: "composite"
@@ -23,10 +28,10 @@ runs:
 
     - name: "Install prod dependencies"
       if: ${{ inputs.dev == 'false' }}
-      run: ${{ inputs.php }} ${{ inputs.composer }} install -q --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader
+      run: ${{ inputs.php }} ${{ inputs.composer }} install ${{ inputs.verbose }} --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader
       shell: bash
 
     - name: "Install dev dependencies"
       if: ${{ inputs.dev == 'true' }}
-      run: ${{ inputs.php }} ${{ inputs.composer }} install -q --no-ansi --no-interaction --no-progress
+      run: ${{ inputs.php }} ${{ inputs.composer }} install ${{ inputs.verbose}} --no-ansi --no-interaction --no-progress
       shell: bash
